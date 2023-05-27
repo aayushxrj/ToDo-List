@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const getDate = require('./views/date');
+const date = require(__dirname+"/views/date.js");
 
 const app = express();
 app.use(express.static("public"));
@@ -14,18 +16,7 @@ let workItems = [];
 
 app.get('/', (req, res) => {
 
-    let today = new Date();
-
-    //displaying day
-    // var currentDay = today.getDay();
-    // var day = dayName(currentDay);;
-    let options = {
-        weekday: "long",
-        day : "numeric",
-        month:"long"
-    };
-    let day = today.toLocaleDateString("en-US", options);
-     
+    let day = date.getDate();     
 
     res.render("list", { listTitle: day,
                          newListItems: items });
@@ -63,34 +54,3 @@ app.listen(3000, () => {
     console.log('Server started on port 3000...');
 }
 );
-
-// function dayName(currentDay) {
-//     var day = "";
-//     switch (currentDay) {
-//         case 0:
-//             day = "Sunday"
-//             break;
-//         case 1:
-//             day = "Monday"
-//             break;
-//         case 2:
-//             day = "Tuesday"
-//             break;
-//         case 3:
-//             day = "Wednesday"
-//             break;
-//         case 4:
-//             day = "Thrusday"
-//             break;
-//         case 5:
-//             day = "Friday"
-//             break;
-//         case 6:
-//             day = "Saturday"
-//             break;
-//         default:
-//             console.log("Error : current day is equal to " + currentDay);
-//             break;
-//     }
-//     return day;
-// }
